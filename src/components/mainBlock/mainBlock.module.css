@@ -2,17 +2,8 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    min-height: 500px;
     color: #0d1b4c;
     background-color: #78c2c3;
     border-radius: 15px;
-}
-
-.main__statistics {
-    display: flex;
-    width: 650px;
-}
-
-.main__statBlock {
-    width: 50%;
+    padding: 20px;
 }

@@ -1,0 +1,21 @@
+.statistics {
+    display: flex;
+    width: 650px;
+}
+
+.statBlock {
+    width: 50%;
+    min-height: 250px;
+    border: 2px solid #3f6699;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+
+.statBlock:last-child {
+    margin-right: 0;
+}
+
+.statBlock__hours {
+    font-size: 50px;
+    font-weight: bold;
+}
