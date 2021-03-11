@@ -1,9 +1,12 @@
 const SET_FLIGHTS = "SET_FLIGTHS";
 const SET_YEAR = "SET_YEAR";
+const CHANGE_TEXT = "CHANGE_TEXT";
+const FILTER_ARRAY = "FILTER_ARRAY";
 
 let initialState = {
     flightsArray: [],
-    filterYear: `2019`
+    filterYear: ``,
+    areaText: ``
 };
 
 const flightListReducer = (state = initialState, action) => {
@@ -12,6 +15,12 @@ const flightListReducer = (state = initialState, action) => {
             return {...state, flightsArray: [...action.flightsArray]}
         }
         case SET_YEAR: {
+            return {...state, filterYear: action.year}
+        }
+        case CHANGE_TEXT: {
+            return {...state, areaText: action.text}
+        }
+        case FILTER_ARRAY: {
             return {...state, filterYear: action.year}
         }
         default:
@@ -25,6 +34,14 @@ export const setFlightsAC = (flightsArray) => {
 
 export const setYearAC = (year) => {
     return ({type: SET_YEAR, year});
+}
+
+export const changeTextAreaAC = (text) => {
+    return ({type: CHANGE_TEXT, text});
+}
+
+export const filterArrayAC = () => {
+    return ({type: FILTER_ARRAY})
 }
 
 export default flightListReducer;
