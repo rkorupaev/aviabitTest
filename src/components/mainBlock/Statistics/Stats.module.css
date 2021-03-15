@@ -8,11 +8,14 @@
     min-height: 250px;
     border: 2px solid #3f6699;
     border-radius: 15px;
+    text-align: left;
+    padding: 20px;
 }
 
 .statBlock__hours {
-    font-size: 50px;
+    font-size: 25px;
     font-weight: bold;
+    margin: 0;
 }
 
 .filter {
