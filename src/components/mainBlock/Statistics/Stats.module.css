@@ -1,11 +1,14 @@
 .statistics {
     display: flex;
     width: 650px;
+    position: relative;
 }
 
 .statBlock {
     flex-grow: 1;
     min-height: 250px;
+    width: 100%;
+    box-sizing: border-box;
     border: 2px solid #3f6699;
     border-radius: 15px;
     text-align: left;
@@ -51,4 +54,24 @@
 
 .filter__button:active {
     transform: scale(0.9);
+}
+
+.statBlock__monthlist {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.statBlock__monthlistItem {
+    border: 2px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 50px;
+    min-height: 50px;
+    margin-right: 5px;
+}
+
+.statBlock__monthlistItem:last-child {
+    margin-right: 0;
 }

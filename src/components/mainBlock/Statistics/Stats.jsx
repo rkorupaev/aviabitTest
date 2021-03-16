@@ -20,6 +20,9 @@ const Stats = (props) => {
     let totalMinutesEst = 0;
 
     let filteredArrayEst = [];
+    let monthsIndexArray = [];
+    let dateArray = [];
+    let monthsArray = [];
 
     if (props.flightsArray.length > 0) {
 
@@ -28,6 +31,24 @@ const Stats = (props) => {
                 filteredArrayEst.push(item);
             }
         });
+
+
+        for (let i = 0; i < filteredArrayEst.length; i++) {
+            dateArray.push(filteredArrayEst[i].dateFlight)
+            for (let j = 1; j <= 12; j ++) {
+                if (dateArray[i].includes(`-0`+ j + `-`) || dateArray[i].includes(`-` + j + `-`)) {
+                    monthsIndexArray.push(j)
+                }
+            }
+        }
+
+        console.log(dateArray);
+        console.log(monthsIndexArray);
+
+        monthsArray = [... new Set(monthsIndexArray)].sort((a, b) => a - b);
+
+        console.log(monthsArray);
+
 
         totalHoursEst = Math.floor(countHours(filteredArrayEst) / 3600);
         totalMinutesEst = (countHours(filteredArrayEst) % 3600) / 60;
@@ -59,8 +80,9 @@ const Stats = (props) => {
                     <p className={style.statBlock__hours}>Фактическое
                         время: <span>{totalHoursAct}</span> ч. <span>{totalMinutesAct}</span> мин.
                     </p>
-                    <ul>
-                        <li>Тут будет список месяцев</li>
+                    <h2>По месяцам:</h2>
+                    <ul className={style.statBlock__monthlist}>
+                        {monthsArray.map(month => <li className={style.statBlock__monthlistItem}>{month}</li>)}
                     </ul>
                 </div>
             </div>
