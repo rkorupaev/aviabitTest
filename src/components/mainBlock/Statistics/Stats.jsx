@@ -4,6 +4,7 @@ import style from "./Stats.module.css"
 const Stats = (props) => {
 
     let totalTime = 0;
+    let newPostTextInput = React.createRef();
 
     const countHours = (array) => {
         totalTime = 0;
@@ -23,6 +24,8 @@ const Stats = (props) => {
     let monthsIndexArray = [];
     let dateArray = [];
     let monthsArray = [];
+    let flightsObjects = [];
+    let monthTimes = [];
 
     if (props.flightsArray.length > 0) {
 
@@ -35,20 +38,15 @@ const Stats = (props) => {
 
         for (let i = 0; i < filteredArrayEst.length; i++) {
             dateArray.push(filteredArrayEst[i].dateFlight)
-            for (let j = 1; j <= 12; j ++) {
-                if (dateArray[i].includes(`-0`+ j + `-`) || dateArray[i].includes(`-` + j + `-`)) {
-                    monthsIndexArray.push(j)
+            for (let j = 1; j <= 12; j++) {
+                if (dateArray[i].includes(`-0` + j + `-`) || dateArray[i].includes(`-` + j + `-`)) {
+                    // monthsIndexArray.push(j);
+                    flightsObjects.push({month: j, timeWork: filteredArrayEst[i].timeWork});
                 }
             }
         }
 
-        console.log(dateArray);
-        console.log(monthsIndexArray);
-
-        monthsArray = [... new Set(monthsIndexArray)].sort((a, b) => a - b);
-
-        console.log(monthsArray);
-
+        // monthsArray = [...new Set(monthsIndexArray)].sort((a, b) => a - b);
 
         totalHoursEst = Math.floor(countHours(filteredArrayEst) / 3600);
         totalMinutesEst = (countHours(filteredArrayEst) % 3600) / 60;
@@ -57,9 +55,28 @@ const Stats = (props) => {
 
         totalHoursAct = Math.floor(countHours(filteredArrayAct) / 3600);
         totalMinutesAct = (countHours(filteredArrayAct) % 3600) / 60;
+
+        console.log(flightsObjects);
+        let months = []
+
+
+        for (let i = 0; i < 12; i++) {
+            months[i] = flightsObjects.filter(item => item.month === i + 1);
+        }
+
+        months.forEach(month => {
+            if (month.length > 0) {
+                monthTimes.push({
+                    monthHoursEst: Math.floor(countHours(month) / 3600),
+                    monthMinutesEst: countHours(month) % 3600 / 60
+                });
+            }
+        });
+
+        console.log(monthTimes);
+
     }
 
-    let newPostTextInput = React.createRef();
 
     return (
         <div>
@@ -68,12 +85,13 @@ const Stats = (props) => {
                 <input className={style.filter__input} placeholder="2017" ref={newPostTextInput}
                        onChange={() => props.onTextAreaChange(newPostTextInput.current.value)}></input>
                 <button className={style.filter__button}
-                        onClick={() => props.onSendQueryButtonCLick(newPostTextInput.current.value)}>Отправить запрос
+                        onClick={() => props.onSendQueryButtonCLick(newPostTextInput.current.value)}
+                        type="submit">Отправить запрос
                 </button>
             </div>
             <div className={style.statistics}>
                 <div className={style.statBlock}>
-                    <h2>За год:</h2>
+                    <h2>За год: <span>{props.filterYear}</span></h2>
                     <p className={style.statBlock__hours}>Плановое
                         время: <span>{totalHoursEst}</span> ч. <span>{totalMinutesEst}</span> мин.
                     </p>
@@ -82,7 +100,13 @@ const Stats = (props) => {
                     </p>
                     <h2>По месяцам:</h2>
                     <ul className={style.statBlock__monthlist}>
-                        {monthsArray.map(month => <li className={style.statBlock__monthlistItem}>{month}</li>)}
+                        {monthTimes.map((month, index) => <li className={style.statBlock__monthlistItem}><h2>{index + 1}</h2><p
+                            className={style.statBlock__itemText}>Плановое
+                            время: <span>{month.monthHoursEst}</span> ч. <span>{month.monthMinutesEst}</span> мин.
+                        </p>
+                            <p className={style.statBlock__itemText}>Фактическое
+                                время: <span>{}</span> ч. <span>{}</span> мин.
+                            </p></li>)}
                     </ul>
                 </div>
             </div>
