@@ -21,9 +21,7 @@ const Stats = (props) => {
     let totalMinutesEst = 0;
 
     let filteredArrayEst = [];
-    let monthsIndexArray = [];
     let dateArray = [];
-    let monthsArray = [];
     let flightsObjects = [];
     let monthTimes = [];
 
@@ -35,18 +33,18 @@ const Stats = (props) => {
             }
         });
 
-
         for (let i = 0; i < filteredArrayEst.length; i++) {
             dateArray.push(filteredArrayEst[i].dateFlight)
             for (let j = 1; j <= 12; j++) {
                 if (dateArray[i].includes(`-0` + j + `-`) || dateArray[i].includes(`-` + j + `-`)) {
-                    // monthsIndexArray.push(j);
-                    flightsObjects.push({month: j, timeWork: filteredArrayEst[i].timeWork});
+                    flightsObjects.push({
+                        month: j,
+                        timeWork: filteredArrayEst[i].timeWork,
+                        type: filteredArrayEst[i].type
+                    });
                 }
             }
         }
-
-        // monthsArray = [...new Set(monthsIndexArray)].sort((a, b) => a - b);
 
         totalHoursEst = Math.floor(countHours(filteredArrayEst) / 3600);
         totalMinutesEst = (countHours(filteredArrayEst) % 3600) / 60;
@@ -56,25 +54,30 @@ const Stats = (props) => {
         totalHoursAct = Math.floor(countHours(filteredArrayAct) / 3600);
         totalMinutesAct = (countHours(filteredArrayAct) % 3600) / 60;
 
-        console.log(flightsObjects);
         let months = []
-
 
         for (let i = 0; i < 12; i++) {
             months[i] = flightsObjects.filter(item => item.month === i + 1);
         }
 
-        months.forEach(month => {
+        months.forEach((month, index) => {
             if (month.length > 0) {
+                let totalSecs = countHours(month);
+
+                month.forEach(item => {
+                    if (item.type === 1) {
+                        totalSecs = totalSecs - item.timeWork;
+                    }
+                });
+
                 monthTimes.push({
                     monthHoursEst: Math.floor(countHours(month) / 3600),
-                    monthMinutesEst: countHours(month) % 3600 / 60
+                    monthMinutesEst: countHours(month) % 3600 / 60,
+                    monthHoursAct : Math.floor(totalSecs / 3600 ),
+                    monthMinutesAct : totalSecs % 3600 / 60
                 });
             }
         });
-
-        console.log(monthTimes);
-
     }
 
 
@@ -100,12 +103,13 @@ const Stats = (props) => {
                     </p>
                     <h2>По месяцам:</h2>
                     <ul className={style.statBlock__monthlist}>
-                        {monthTimes.map((month, index) => <li className={style.statBlock__monthlistItem}><h2>{index + 1}</h2><p
+                        {monthTimes.map((month, index) => <li className={style.statBlock__monthlistItem}>
+                            <h2>{index + 1}</h2><p
                             className={style.statBlock__itemText}>Плановое
                             время: <span>{month.monthHoursEst}</span> ч. <span>{month.monthMinutesEst}</span> мин.
                         </p>
                             <p className={style.statBlock__itemText}>Фактическое
-                                время: <span>{}</span> ч. <span>{}</span> мин.
+                                время: <span>{month.monthHoursAct}</span> ч. <span>{month.monthMinutesAct}</span> мин.
                             </p></li>)}
                     </ul>
                 </div>

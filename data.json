@@ -6544,7 +6544,7 @@
       "timeNight": 0,
       "timeBiologicalNight": 0,
       "timeWork": 24600,
-      "type": 1,
+      "type": 0,
       "takeoff": {
         "name": "Паттайя(Утапао)",
         "lat": 12.68888888,
@@ -6566,7 +6566,7 @@
       "timeNight": 3600,
       "timeBiologicalNight": 0,
       "timeWork": 23400,
-      "type": 1,
+      "type": 0,
       "takeoff": {
         "name": "АМРИТСАР",
         "lat": -31.61666666,
@@ -6588,7 +6588,7 @@
       "timeNight": 21960,
       "timeBiologicalNight": 28080,
       "timeWork": 41580,
-      "type": 1,
+      "type": 0,
       "takeoff": {
         "name": "Краснодар(Пашковский)",
         "lat": 45.03277777,
@@ -6610,7 +6610,7 @@
       "timeNight": 0,
       "timeBiologicalNight": 0,
       "timeWork": 24600,
-      "type": 1,
+      "type": 0,
       "takeoff": {
         "name": "Паттайя(Утапао)",
         "lat": 12.68888888,

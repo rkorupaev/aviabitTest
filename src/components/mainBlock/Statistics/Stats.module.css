@@ -1,6 +1,6 @@
 .statistics {
     display: flex;
-    width: 650px;
+    width: 1200px;
     position: relative;
 }
 
@@ -67,8 +67,7 @@
     border: 2px solid #3f6699;
     border-radius: 5px;
     box-sizing: border-box;
-    flex-grow: 1;
-    width: 250px;
+    width: 285px;
     min-height: 150px;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -79,7 +78,7 @@
     margin: 0;
 }
 
-.statBlock__monthlistItem:nth-child(2n) {
+.statBlock__monthlistItem:nth-child(4n) {
     margin-right: 0;
 }
 
