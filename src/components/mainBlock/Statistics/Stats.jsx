@@ -73,13 +73,12 @@ const Stats = (props) => {
                 monthTimes.push({
                     monthHoursEst: Math.floor(countHours(month) / 3600),
                     monthMinutesEst: countHours(month) % 3600 / 60,
-                    monthHoursAct : Math.floor(totalSecs / 3600 ),
-                    monthMinutesAct : totalSecs % 3600 / 60
+                    monthHoursAct: Math.floor(totalSecs / 3600),
+                    monthMinutesAct: totalSecs % 3600 / 60
                 });
             }
         });
     }
-
 
     return (
         <div>
@@ -101,17 +100,19 @@ const Stats = (props) => {
                     <p className={style.statBlock__hours}>Фактическое
                         время: <span>{totalHoursAct}</span> ч. <span>{totalMinutesAct}</span> мин.
                     </p>
-                    <h2>По месяцам:</h2>
-                    <ul className={style.statBlock__monthlist}>
-                        {monthTimes.map((month, index) => <li className={style.statBlock__monthlistItem}>
-                            <h2>{index + 1}</h2><p
-                            className={style.statBlock__itemText}>Плановое
-                            время: <span>{month.monthHoursEst}</span> ч. <span>{month.monthMinutesEst}</span> мин.
-                        </p>
-                            <p className={style.statBlock__itemText}>Фактическое
-                                время: <span>{month.monthHoursAct}</span> ч. <span>{month.monthMinutesAct}</span> мин.
-                            </p></li>)}
-                    </ul>
+                    <div className={props.filterYear ? style.statBlock__monthWrapper : style.statBlock__monthWrapperHidden}>
+                        <h2>По месяцам:</h2>
+                        <ul className={style.statBlock__monthlist}>
+                            {monthTimes.map((month, index) => <li className={style.statBlock__monthlistItem}>
+                                <h2>{index + 1}</h2><p
+                                className={style.statBlock__itemText}>Плановое
+                                время: <span>{month.monthHoursEst}</span> ч. <span>{month.monthMinutesEst}</span> мин.
+                            </p>
+                                <p className={style.statBlock__itemText}>Фактическое
+                                    время: <span>{month.monthHoursAct}</span> ч. <span>{month.monthMinutesAct}</span> мин.
+                                </p></li>)}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -87,3 +87,11 @@
     font-weight: bold;
     margin: 0;
 }
+
+.statBlock__monthWrapper {
+    display: block;
+}
+
+.statBlock__monthWrapperHidden {
+    display: none;
+}
