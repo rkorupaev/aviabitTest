@@ -1,10 +1,11 @@
 import React from "react";
 import style from "./Stats.module.css"
+import YearStats from "./YearStats/YearStats";
+import {Redirect, Route} from "react-router-dom";
 
 const Stats = (props) => {
 
     let totalTime = 0;
-    let newPostTextInput = React.createRef();
 
     const countHours = (array) => {
         totalTime = 0;
@@ -74,48 +75,27 @@ const Stats = (props) => {
                     monthHoursEst: Math.floor(countHours(month) / 3600),
                     monthMinutesEst: countHours(month) % 3600 / 60,
                     monthHoursAct: Math.floor(totalSecs / 3600),
-                    monthMinutesAct: totalSecs % 3600 / 60
+                    monthMinutesAct: totalSecs % 3600 / 60,
+                    monthId: index + 1
                 });
             }
         });
     }
 
     return (
-        <div>
-            <div className={style.filter}>
-                <p className={style.filter__text}>Введите год поиска:</p>
-                <input className={style.filter__input} placeholder="2017" ref={newPostTextInput}
-                       onChange={() => props.onTextAreaChange(newPostTextInput.current.value)}></input>
-                <button className={style.filter__button}
-                        onClick={() => props.onSendQueryButtonCLick(newPostTextInput.current.value)}
-                        type="submit">Отправить запрос
-                </button>
-            </div>
-            <div className={style.statistics}>
-                <div className={style.statBlock}>
-                    <h2>За год: <span>{props.filterYear}</span></h2>
-                    <p className={style.statBlock__hours}>Плановое
-                        время: <span>{totalHoursEst}</span> ч. <span>{totalMinutesEst}</span> мин.
-                    </p>
-                    <p className={style.statBlock__hours}>Фактическое
-                        время: <span>{totalHoursAct}</span> ч. <span>{totalMinutesAct}</span> мин.
-                    </p>
-                    <div className={props.filterYear ? style.statBlock__monthWrapper : style.statBlock__monthWrapperHidden}>
-                        <h2>По месяцам:</h2>
-                        <ul className={style.statBlock__monthlist}>
-                            {monthTimes.map((month, index) => <li className={style.statBlock__monthlistItem}>
-                                <h2>{index + 1}</h2><p
-                                className={style.statBlock__itemText}>Плановое
-                                время: <span>{month.monthHoursEst}</span> ч. <span>{month.monthMinutesEst}</span> мин.
-                            </p>
-                                <p className={style.statBlock__itemText}>Фактическое
-                                    время: <span>{month.monthHoursAct}</span> ч. <span>{month.monthMinutesAct}</span> мин.
-                                </p></li>)}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <section>
+            <Route path="/yearstats"
+                   render={() => <YearStats totalHoursEst={totalHoursEst} totalMinutesEst={totalMinutesEst}
+                                            totalHoursAct={totalHoursAct}
+                                            totalMinutesAct={totalMinutesAct} monthTimes={monthTimes} props={props}/>}/>
+            <Route path="/months"
+                   render={() => <YearStats totalHoursEst={totalHoursEst} totalMinutesEst={totalMinutesEst}
+                                            totalHoursAct={totalHoursAct}
+                                            totalMinutesAct={totalMinutesAct} monthTimes={monthTimes} props={props}/>}/>
+            <Redirect from="/" to="/yearstats"/>
+
+
+        </section>
     );
 };
 

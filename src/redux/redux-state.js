@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from "redux";
-import flightListReducer from "./flightListreducer";
+import flightListReducer from "./flightListReducer";
 
 let reducers = combineReducers({
     flightList: flightListReducer,

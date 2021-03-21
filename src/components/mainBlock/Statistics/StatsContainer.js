@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {connect} from "react-redux";
-import {changeTextAreaAC, setFlightsAC, setYearAC} from "../../../redux/flightListreducer";
+import {changeTextAreaAC, setFlightsAC, setYearAC} from "../../../redux/flightListReducer";
 import Stats from "./Stats";
 
 class StatsApi extends React.Component {
