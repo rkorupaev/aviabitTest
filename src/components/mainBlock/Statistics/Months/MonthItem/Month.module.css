@@ -1,0 +1,7 @@
+.month {
+    width: 1200px;
+    min-height: 650px;
+    border: 2px solid #3f6699;
+    border-radius: 15px;
+    padding: 20px;
+}

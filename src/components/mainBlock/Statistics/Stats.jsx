@@ -1,7 +1,8 @@
 import React from "react";
 import style from "./Stats.module.css"
 import YearStats from "./YearStats/YearStats";
-import {Redirect, Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
+import Months from "./Months/Months";
 
 const Stats = (props) => {
 
@@ -25,6 +26,7 @@ const Stats = (props) => {
     let dateArray = [];
     let flightsObjects = [];
     let monthTimes = [];
+    let months = []
 
     if (props.flightsArray.length > 0) {
 
@@ -40,8 +42,7 @@ const Stats = (props) => {
                 if (dateArray[i].includes(`-0` + j + `-`) || dateArray[i].includes(`-` + j + `-`)) {
                     flightsObjects.push({
                         month: j,
-                        timeWork: filteredArrayEst[i].timeWork,
-                        type: filteredArrayEst[i].type
+                        ...filteredArrayEst[i]
                     });
                 }
             }
@@ -55,7 +56,6 @@ const Stats = (props) => {
         totalHoursAct = Math.floor(countHours(filteredArrayAct) / 3600);
         totalMinutesAct = (countHours(filteredArrayAct) % 3600) / 60;
 
-        let months = []
 
         for (let i = 0; i < 12; i++) {
             months[i] = flightsObjects.filter(item => item.month === i + 1);
@@ -84,15 +84,17 @@ const Stats = (props) => {
 
     return (
         <section>
-            <Route path="/yearstats"
-                   render={() => <YearStats totalHoursEst={totalHoursEst} totalMinutesEst={totalMinutesEst}
-                                            totalHoursAct={totalHoursAct}
-                                            totalMinutesAct={totalMinutesAct} monthTimes={monthTimes} props={props}/>}/>
-            <Route path="/months"
-                   render={() => <YearStats totalHoursEst={totalHoursEst} totalMinutesEst={totalMinutesEst}
-                                            totalHoursAct={totalHoursAct}
-                                            totalMinutesAct={totalMinutesAct} monthTimes={monthTimes} props={props}/>}/>
-            <Redirect from="/" to="/yearstats"/>
+            <Switch>
+                <Route path="/yearstats"
+                       render={() => <YearStats totalHoursEst={totalHoursEst} totalMinutesEst={totalMinutesEst}
+                                                totalHoursAct={totalHoursAct}
+                                                totalMinutesAct={totalMinutesAct} monthTimes={monthTimes}
+                                                props={props}
+                                                months={months}/>}/>
+                <Route path="/months"
+                       render={() => <Months />}/>
+                <Redirect from="/" to="/yearstats"/>
+            </Switch>
 
 
         </section>

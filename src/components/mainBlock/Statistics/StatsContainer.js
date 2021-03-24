@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {connect} from "react-redux";
-import {changeTextAreaAC, setFlightsAC, setYearAC} from "../../../redux/flightListReducer";
+import {changeTextAreaAC, getFlightsAC, setFlightsAC, setYearAC} from "../../../redux/flightListReducer";
 import Stats from "./Stats";
 
 class StatsApi extends React.Component {
@@ -20,11 +20,16 @@ class StatsApi extends React.Component {
         this.props.setYear(year);
     }
 
+    onMonthLinkCLick = (flights) => {
+        this.props.getFlights(flights);
+    }
+
 
     render() {
         return <Stats flightsArray={this.props.flightsArray} filterYear={this.props.filterYear}
                       onTextAreaChange={this.onTextAreaChange}
-                      onSendQueryButtonCLick={this.onSendQueryButtonCLick}/>;
+                      onSendQueryButtonCLick={this.onSendQueryButtonCLick}
+                      onMonthLinkCLick={this.onMonthLinkCLick}/>;
     }
 }
 
@@ -46,6 +51,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         changeTextArea: (text) => {
             dispatch(changeTextAreaAC(text));
+        },
+        getFlights: (flights) => {
+            dispatch(getFlightsAC(flights));
         }
     }
 };
