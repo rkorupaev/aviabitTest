@@ -31,7 +31,7 @@ const YearStats = (props) => {
                         <ul className={style.statBlock__monthlist}>
                             {props.monthTimes.map(month => <NavLink to={"/months/" + month.monthId}
                                                                     className={style.statBlock__monthlistItem}
-                                                                    onClick={() => props.props.onMonthLinkCLick(props.months)}>
+                            >
                                 <li>
                                     <h2>{month.monthId}</h2><p
                                     className={style.statBlock__itemText}>Плановое

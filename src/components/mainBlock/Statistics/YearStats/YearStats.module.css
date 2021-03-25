@@ -106,3 +106,17 @@
 .statBlock__monthWrapperHidden {
     display: none;
 }
+
+@media (max-width: 1199px) {
+    .statistics {
+        width: 768px;
+    }
+
+    .statBlock__monthlistItem {
+        flex-grow: 1;
+    }
+
+    .statBlock__monthlistItem:nth-child(2n) {
+        margin-right: 0;
+    }
+}

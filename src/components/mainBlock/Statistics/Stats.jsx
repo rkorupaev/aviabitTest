@@ -61,6 +61,12 @@ const Stats = (props) => {
             months[i] = flightsObjects.filter(item => item.month === i + 1);
         }
 
+        let onMonthArrayHandler = (months) => {
+            props.onMonthLinkCLick(months)
+        }
+
+        onMonthArrayHandler(months);
+
         months.forEach((month, index) => {
             if (month.length > 0) {
                 let totalSecs = countHours(month);
